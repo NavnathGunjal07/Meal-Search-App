@@ -1,3 +1,4 @@
+//Getting meal id's stored in local storage 
 var mealID = localStorage.getItem('mealID');
 var mealTitle = localStorage.getItem('mealTitle');
 var meal_result_title = document.getElementById('meal_result_title');
@@ -8,11 +9,12 @@ meal_result_title.innerHTML = result_title;
 
 let html = ""
 function detailsItemsPage(){
+    //fething data using meal id
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
 .then((res) => res.json())
 .then((data) =>{
     console.log(data);
-    
+    //adding card to meal box div
     html = `
         <div id = "detailspage-cards" class="card mb-3">
         <img src="${data.meals[0].strMealThumb}" class="card-img-top" alt="...">

@@ -1,3 +1,4 @@
+//global variables
 var search_input = document.getElementById("input-search-value");
 // var meal_cards = document.getElementById("meal-cards");
 var meal_box = document.getElementById("meal");
@@ -7,17 +8,17 @@ var search_submit = document.getElementById("search-input-button");
 var arrfavorites = [];
 
 
-favorite_items.addEventListener("click", function(){
-   
-})
 // var storedFavorites = JSON.parse(localStorage.getItem("arrfavorites"));
 
+//added event listner for search when anykey is pressed it will fetch data from api
 search_input.addEventListener("keydown", function(){
 
     console.log(search_input.value);
     getList(search_input.value);
 })
 
+
+//adding meal id's in array and then storing this array in local storage for favorites page
 function addTofavorites(meal_id,meal_title)
 {
      arrfavorites.push(meal_id);
@@ -28,21 +29,27 @@ function addTofavorites(meal_id,meal_title)
 
 var mealID = "";
 var mealTitle = "";
+
+//adding meal id in local storge for accessing data in details page
 function addMealIdToLocal(meal_id,meal_title){
     console.log("Clicked to see more");
     localStorage.setItem('mealID', meal_id);
     localStorage.setItem('mealTitle', meal_title);
 }
 
+//fetching all data from api
  function getList(search_text){
     console.log(search_text);
+    //fetching data by search text
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search_text}`)
     .then(res=>res.json())
     .then(data => {
         let html = "";
         console.log(data);
         if(data.meals){
+            //itrating array present in data
             data.meals.forEach(meal => {
+                //adding cards in meals box div
                 html += `
                     <div class="card" id = "${meal.idMeal}" style="width: 18rem; margin-bottom:3%; border-radius: 30px; overflow:hidden">
                     <img src="${meal.strMealThumb}" class="card-img-top" alt="Meal App">
